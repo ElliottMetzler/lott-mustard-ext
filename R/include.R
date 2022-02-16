@@ -24,7 +24,8 @@ librarian::shelf(
   gganimate,
   gapminder,
   stargazer,
-  snakecase
+  snakecase,
+  skimr
 )
 
 # tell here where we are so we can use it elsewhere
