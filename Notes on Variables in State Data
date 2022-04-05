@@ -1,0 +1,56 @@
+Notes on Variables in State Data
+
+Batch 1: Appears to be counts/totals
+1) Vio - violent crimes
+2) Prop - Property Crimes
+3) Murder - Murders
+4) Rape - Rape
+5) Assault - Aggravated Assault
+6) Rob - robbery
+7) Burg burglary
+8) Auto - Auto theft
+9) larc - Larceny
+
+Appear to be missing index crimes?
+
+Batch 2: Appear to be Arrest Rates (Arrests per Offense by category)
+1) aovio - Violent
+2) aopro - Property
+3) aomur - murder
+4) aorap - rape
+5) aorob - robbery
+6) aoaga - aggravated assault
+7) aobur - burglary
+8) aolar - larceny
+9) aoaut - auto theft
+
+Also appear to be missing index crimes
+
+Batch 3: Appear to be the crime rates per 100,000
+1) ratvio - violent rate
+2) ratpro - property rate
+3) ratmur - murder rate
+4) ratrap - rape rate
+5) rataga - aggravated assault
+6) ratrob - robery rate
+7) rataut - auto theft
+8) ratbur - burplary
+9) ratlar - larceny
+
+popstate - state population
+rpcpi - real per capita personal income
+rpcim - real per capita income maintenance
+rpcui - real per capita unemployment insurance
+
+shalll - shall issue dummy?
+
+Missing all values:
+vioarr
+proparr
+murarr
+raparr
+robarr
+agaarr
+burarr
+lararr
+autoarr
