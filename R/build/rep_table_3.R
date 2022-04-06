@@ -63,9 +63,37 @@ for (reg_index in 1:9) {
 
 }
 
-# Export
-etable(models_list,
-       title = "Replication of Table 3: Fixed Effects Regressions",
-       file = here("tables", "rep_table_3.tex"),
-       replace = T,
-       label = "tab:replicatetable3")
+
+# Export as 3 panels
+panels <- 3
+panel_names <- c("A", "B", "C")
+control_variables <- paste(colnames(control_var), collapse = ", ")
+
+for (panel in 1:panels) {
+  title = paste0("Replication of Table 3 Panel ", 
+                 panel_names[panel],
+                 " : Fixed Effects Regressions")
+  
+  file = paste0("tables/", 
+                "rep_table_3", 
+                str_to_lower(panel_names[panel]),
+                ".tex")
+  
+  label = paste0("tab:replicatetable3",
+                 str_to_lower(panel_names[panel]))
+  
+  end_col = panel * 3
+  start_col = end_col - 2
+  
+  etable(models_list[start_col:end_col],
+         title = title,
+         file = here(file),
+         fontsize = "small",
+         drop = c(colnames(control_var)),
+         replace = T,
+         label = label,
+         notes = paste0("Control variables ommited from table, 
+                        though they were included in the analysis. 
+                        Consistent with the original paper, 
+                        control variables include: ", control_variables, "."))
+}
