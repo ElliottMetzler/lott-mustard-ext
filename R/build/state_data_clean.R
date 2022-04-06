@@ -33,8 +33,8 @@ data <- read_dta(here("data", "raw", "UpdatedStateLevelData-2010.dta")) %>%
     murder_crime_rate = ratmur, # Crimes per 100k ppl - Murder
     # Murder With Guns Missing
     rape_crime_rate = ratrap, # Crimes per 100k ppl - Rape
-    robbery_crime_rate =ratrob, # Crimes per 100k ppl - Robbery
     assault_crime_rate = rataga, # Crimes per 100k ppl - Aggravated Assault
+    robbery_crime_rate =ratrob, # Crimes per 100k ppl - Robbery
     burglary_crime_rate = ratbur, # Crimes per 100k ppl - Burglary
     larceny_crime_rate = ratlar, # Crimes per 100k ppl - Larceny
     autotheft_crime_rate = rataut, # Crimes per 100k ppl - Auto Theft
@@ -50,13 +50,19 @@ data <- read_dta(here("data", "raw", "UpdatedStateLevelData-2010.dta")) %>%
     
     # Population Characteristics
     # No County Population
-    # No County Population per Square Mile
     state_population = popstate,
+    density,
     # No NRA membership
     # No % republican votes
     
     
     everything()) %>% 
+  
+  mutate(
+    across(ends_with("_crime_rate"),
+           .fns = list(log = ~log(.x)),
+           .names = "{.col}_{.fn}")
+  ) %>%
   
   # Remove Variables that we can't or don't use
   select(
@@ -68,4 +74,4 @@ data <- read_dta(here("data", "raw", "UpdatedStateLevelData-2010.dta")) %>%
   )
 
 
-data %>% write_csv(here("data", "clean", "state_data_clean.csv"))
+data %>% write_csv(here("data", "clean", "state_data_clean2.csv"))

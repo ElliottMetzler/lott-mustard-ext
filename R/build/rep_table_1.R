@@ -4,8 +4,8 @@ rm(list = ls())
 read_csv(here("data", "clean", "state_data_clean.csv"),
          show_col_types = F) %>% 
   select(state, 
-         ends_with("crime_rate"),
-         ends_with("arrest_rate")) %>% 
+         ends_with("_crime_rate"),
+         ends_with("_arrest_rate")) %>% 
   group_by(state) %>% 
   summarise(across(everything(),
                    list(state_means = ~ mean(.x,na.rm=T),
@@ -37,7 +37,7 @@ read_csv(here("data", "clean", "state_data_clean.csv"),
                   "Mean of Within-State Standard Deviations"),
     booktabs = T,
     format = 'latex',
-    label = 'tab:replicatetable2'
+    label = 'tab:replicatetable1'
   ) %>% 
   kable_styling(latex_options = c("striped", "HOLD_position")) %>% 
   write_lines(here("tables", "rep_table_1.tex"))

@@ -34,17 +34,48 @@
 
 \section{Introduction}
 
-\section{Analysis and Results}
+\textbf{Prompt:}  What is the purpose of your study?  State very clearly why people should care about this project.  
+
+\section{Background and Economic Theory}
+
+\textbf{Prompt:} This section should only focus on the original Lott and Mustard (1997) project.  What was this study?  How did they do it?  How were the laws coded?  It should include a table of the rollout state by state (Table 1), clear description of the laws, the theory behind why you should find deterrence (as well as a description of the economic theory of deterrence), and what the authors found in their original paper.  
 
 \input{../tables/rep_table_1.tex}
 
-\input{../tables/rep_table_2.tex}
+\section{Data}
+
+\textbf{Prompt:} In this section, you will describe the state-level data.  While the authors used county-level data, we will be using state-level since the laws are ultimately at the state level and critics have noted that the county-level data has substantial measurement error.  Describe the data, produce a table of summary statistics for the various crime outcomes as Table 2. Anything additional that you want to show (like time series of the crimes) is up to you. The goal is to create a readable document, so make your own choices.
+
+\input{../tables/rep_table_2a.tex}
+
+\input{../tables/rep_table_2b.tex}
 
 
+\section{Empirical Model and Estimation}
 
+\textbf{Prompt: } Here you should describe the model that you will be using.  There are two models.
+
+	\subsection{Two way Fixed Effects}
+	
+	\textbf{Prompt: } This model should be similar to the one used by the authors only you will be using the state level data with state and year fixed effects plus all controls.  Choose the outcome specification (log or levels in rate form) that the authors use.
+	
+	\input{../tables/rep_table_3.tex}
+	
+	\subsection{Bacon Decomposition}
+	
+	\textbf{Prompt: } Implement the Bacon decomposition discussed in class, but unlike the previous section, only report the TWFE without controls (as we did not discuss the interpretation of the Bacon decomposition with controls in class).  It is also discussed in my Mixtape chapter in the Mixtape.  Interpret this.  Product Table 3 with this information.  The types of things I want you to focus on are the weights and average DiD estimate on the early to late 2x2s as well as the late to early 2x2s. Why are the late to early 2x2s a problem?  Read closely my section on this in the Mixtape to help you understand this problem.  
+	
+	\subsection{Callaway and Sant'anna}
+	
+	\textbf{Prompt: } Present a subsection in which you implement the Callaway and Sant’anna estimator.  Describe the model with an equation and a description (short). Use the double robust specification. You will be analyzing each outcome and reporting the overall ATT.  Do not report the group-level ATTs because many states simply do not have enough states per treatment date for the bootstrapping to provide accurate 95 percent confidence intervals.  Use no more than 2 covariates – use your own judgment in selectin them. Report this in Table 4 and in your discussion compare what you found with the original findings.  Are they similar?  If not how do they differ?
+	
+	\subsection{Event Study (Sun and Abraham)}
+
+	\textbf{Prompt: } Finally, implement the Sun and Abraham event study.  While you can estimate Callaway and Sant’anna event studies, I would like to use Sun and Abraham.  Explain the interaction weighted estimator and show a figure of each crime.  Do pretrends appear to hold?  How confident do you feel then that parallel trends holds for each outcome.  This should only be presented as a Figure, not a table.  
 
 \section{Conclusion}
 
+\textbf{Prompt: }What do you think you learned from this exercise?  Feel free to discuss as little or as much as you want.  I am just interested in your opinions.  The purpose of this is merely to give you a nudge in considering how to interpret results and offer some commentary. 
 
 \end{document}
 
