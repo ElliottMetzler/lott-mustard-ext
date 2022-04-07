@@ -27,7 +27,8 @@ librarian::shelf(
   snakecase,
   skimr,
   fixest,
-  etable
+  etable,
+  bacondecomp
 )
 
 # tell here where we are so we can use it elsewhere

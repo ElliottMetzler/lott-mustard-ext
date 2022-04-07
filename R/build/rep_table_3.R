@@ -70,16 +70,16 @@ panel_names <- c("A", "B", "C")
 control_variables <- paste(colnames(control_var), collapse = ", ")
 
 for (panel in 1:panels) {
-  title = paste0("Replication of Table 3 Panel ", 
+  title <- paste0("Replication of Table 3 Panel ", 
                  panel_names[panel],
                  " : Fixed Effects Regressions")
   
-  file = paste0("tables/", 
+  file <- paste0("tables/", 
                 "rep_table_3", 
                 str_to_lower(panel_names[panel]),
                 ".tex")
   
-  label = paste0("tab:replicatetable3",
+  label <- paste0("tab:replicatetable3",
                  str_to_lower(panel_names[panel]))
   
   end_col = panel * 3
