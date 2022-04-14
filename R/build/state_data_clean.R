@@ -64,14 +64,10 @@ data <- read_dta(here("data", "raw", "UpdatedStateLevelData-2010.dta")) %>%
            .names = "{.col}_{.fn}")
   ) %>%
   
-  # Remove Variables that we can't or don't use
-  select(
-    -c("yr70","yr71","yr72","yr73","yr74","yr75", "yr76",
-       "yr93", "yr94","yr95","yr96","yr97","yr98","yr99","yr00",
-       "yr01","yr02","yr03","yr04","yr05","yr06","yr07",
-       "proparr", "murarr", "raparr", "robarr", "agaarr",
-       "burarr", "lararr", "autarr")
-  )
+  # Final Variable selection and ordering
+  select(fipsstat:density,
+         ppwm1019:ppnf65o,
+         violent_crime_rate_log:autotheft_crime_rate_log)
 
 
-data %>% write_csv(here("data", "clean", "state_data_clean2.csv"))
+data %>% write_csv(here("data", "clean", "state_data_clean.csv"))

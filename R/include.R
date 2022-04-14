@@ -28,7 +28,8 @@ librarian::shelf(
   skimr,
   fixest,
   etable,
-  bacondecomp
+  bacondecomp,
+  did
 )
 
 # tell here where we are so we can use it elsewhere

@@ -1,7 +1,7 @@
 gc()
 rm(list = ls())
 
-df <- read_csv(here("data", "clean", "state_data_clean2.csv"),
+df <- read_csv(here("data", "clean", "state_data_clean.csv"),
                show_col_types = F) %>% 
   mutate(state = factor(state))
 
@@ -57,7 +57,8 @@ for (reg_index in 1:9) {
                               sep=""))
   
   this_model <- feols(fml = formula,
-                      data = reg_df)
+                      data = reg_df,
+                      vcov = "HC1")
   
   models_list[[y]] <- this_model
 

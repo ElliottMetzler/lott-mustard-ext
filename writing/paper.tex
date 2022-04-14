@@ -54,44 +54,61 @@
 
 \section{Empirical Model and Estimation}
 
-\textbf{Prompt: } Here you should describe the model that you will be using.  There are two models.
+\begin{itemize}
+\item 
+Explain what this section is going to be about at a high level
+\item
+Quickly Summarize anything interesting
 
-	\subsection{Two way Fixed Effects}
-	
-	\textbf{Prompt: } This model should be similar to the one used by the authors only you will be using the state level data with state and year fixed effects plus all controls.  Choose the outcome specification (log or levels in rate form) that the authors use.
-	
-	\textbf{STATUS:}
-	
-	* To Do Item
-	
-	\input{../tables/rep_table_3a.tex}
-	
-	\input{../tables/rep_table_3b.tex}
-	
-	\input{../tables/rep_table_3c.tex}
-	
-	
-	\subsection{Bacon Decomposition}
-	
-	\textbf{Prompt: } Implement the Bacon decomposition discussed in class, but unlike the previous section, only report the TWFE without controls (as we did not discuss the interpretation of the Bacon decomposition with controls in class).  It is also discussed in my Mixtape chapter in the Mixtape.  Interpret this.  Product Table 3 with this information.  The types of things I want you to focus on are the weights and average DiD estimate on the early to late 2x2s as well as the late to early 2x2s. Why are the late to early 2x2s a problem?  Read closely my section on this in the Mixtape to help you understand this problem.  
-	
-	\begin{landscape}
-	\input{../tables/bacon_decompositiona.tex}
-	
-	\input{../tables/bacon_decompositionb.tex}
-	
-	\input{../tables/bacon_decompositionc.tex}
-	
-	\end{landscape}
-	
-	
-	\subsection{Callaway and Sant'anna}
-	
-	\textbf{Prompt: } Present a subsection in which you implement the Callaway and Sant’anna estimator.  Describe the model with an equation and a description (short). Use the double robust specification. You will be analyzing each outcome and reporting the overall ATT.  Do not report the group-level ATTs because many states simply do not have enough states per treatment date for the bootstrapping to provide accurate 95 percent confidence intervals.  Use no more than 2 covariates – use your own judgment in selectin them. Report this in Table 4 and in your discussion compare what you found with the original findings.  Are they similar?  If not how do they differ?
-	
-	\subsection{Event Study (Sun and Abraham)}
+\end{itemize}
 
-	\textbf{Prompt: } Finally, implement the Sun and Abraham event study.  While you can estimate Callaway and Sant’anna event studies, I would like to use Sun and Abraham.  Explain the interaction weighted estimator and show a figure of each crime.  Do pretrends appear to hold?  How confident do you feel then that parallel trends holds for each outcome.  This should only be presented as a Figure, not a table.  
+\subsection{Two way Fixed Effects}
+
+\begin{itemize}
+\item 
+Describe the model used by the authors
+\item
+Describe how this model is different
+\item
+Explain exclusion of controls from the tables but that they are analyzed
+\item 
+Draft explanation of model results
+\end{itemize}
+
+\input{../tables/rep_table_3a.tex}
+
+\input{../tables/rep_table_3b.tex}
+
+\input{../tables/rep_table_3c.tex}
+
+\subsection{Bacon Decomposition}
+
+\begin{itemize}
+\item
+Explain Analysis: Bacon Decomposition without controls
+\item
+Explain weights and DiD estimates
+\item
+Explain early to late 2x2s and late to early 2x2s. What is the problem with late to early?
+\end{itemize}
+
+\begin{landscape}
+\input{../tables/bacon_decompositiona.tex}
+
+\input{../tables/bacon_decompositionb.tex}
+
+\input{../tables/bacon_decompositionc.tex}
+
+\end{landscape}
+
+
+\subsection{Callaway and Sant'anna}
+
+\textbf{Prompt: } Present a subsection in which you implement the Callaway and Sant’anna estimator.  Describe the model with an equation and a description (short). Use the double robust specification. You will be analyzing each outcome and reporting the overall ATT.  Do not report the group-level ATTs because many states simply do not have enough states per treatment date for the bootstrapping to provide accurate 95 percent confidence intervals.  Use no more than 2 covariates – use your own judgment in selectin them. Report this in Table 4 and in your discussion compare what you found with the original findings.  Are they similar?  If not how do they differ?
+
+\subsection{Event Study (Sun and Abraham)}
+
+\textbf{Prompt: } Finally, implement the Sun and Abraham event study.  While you can estimate Callaway and Sant’anna event studies, I would like to use Sun and Abraham.  Explain the interaction weighted estimator and show a figure of each crime.  Do pretrends appear to hold?  How confident do you feel then that parallel trends holds for each outcome.  This should only be presented as a Figure, not a table.  
 
 \section{Conclusion}
 

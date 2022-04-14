@@ -3,9 +3,7 @@ rm(list = ls())
 
 df <- read_csv(here("data", "clean", "state_data_clean.csv"),
                show_col_types = F) %>% 
-  select(shalll:state_population,
-         density,
-         ppwm1019:ppnf65o)
+  select(shalll:ppnf65o)
 
 ns <- df %>% summarise(across(everything(), ~sum(!is.na(.x))))
 means <- df %>% summarise(across(everything(), ~mean(.x, na.rm=T))) %>% round(4)
