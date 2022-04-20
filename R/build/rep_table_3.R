@@ -33,6 +33,7 @@ control_var <- df %>%
 # Run Regressions Across Vars
 
 models_list <- list()
+coefs_ses <- list()
 
 for (reg_index in 1:9) {
 
@@ -60,9 +61,29 @@ for (reg_index in 1:9) {
                       data = reg_df,
                       vcov = "HC1")
   
+  coefs_ses[[y]] <- c(this_model$coefficients[[1]],
+                      this_model$se[[1]])
+  
+  
   models_list[[y]] <- this_model
 
 }
+
+do.call("rbind", coefs_ses) %>% 
+  as.data.frame %>% 
+  rownames_to_column() %>% 
+  mutate(rowname = rowname %>% str_replace_all("_", " ") %>% str_to_title()) %>% 
+  kbl(
+    caption = "Two Way Fixed Effects Shall Issue Coefficients",
+    col.names = c("Outcome Variable",
+                  "Coefficient",
+                  "Std. Error"),
+    booktabs = T,
+    format = "latex",
+    label = "tab:twfe"
+  ) %>% 
+  kable_styling(latex_option = c("striped", "HOLD_position")) %>% 
+  write_lines(here("tables", "twfe.tex"))
 
 
 # Export as 3 panels

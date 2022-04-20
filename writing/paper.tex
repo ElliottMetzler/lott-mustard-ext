@@ -75,50 +75,39 @@ This section presents each of the four methods applied to the data. First, we an
 
 \subsection{Two way Fixed Effects}
 
-For the two way fixed effects model, we use a similar specification to the authors. For each category of crime, we run an individual two way fixed effects regression where the natural log of crime rate is the outcome, and the covariates include the shall issue dummy variable, the arrest rate associated with that crime, and the various control variables related to economic and demographic conditions. To account for unobservable differences between the states and years in the data, we use allow for fixed effects on these two variables. The key difference between our implementation and the author's original is that we use state level data as opposed to county level data. We present the key results of this analysis in the tables below.
+For the two way fixed effects model, we use a similar specification to the authors. For each category of crime, we run an individual two way fixed effects regression where the natural log of crime rate is the outcome, and the covariates include the shall issue dummy variable, the arrest rate associated with that crime, and the various control variables related to economic and demographic conditions. To account for unobservable differences between the states and years in the data, we use allow for fixed effects on these two variables. The key difference between our implementation and the author's original is that we use state level data as opposed to county level data. We present the key results of this analysis in the table below.
 
-\input{../tables/rep_table_3a.tex}
-
-\input{../tables/rep_table_3b.tex}
-
-\input{../tables/rep_table_3c.tex}
+\input{../tables/twfe.tex}
 
 As shown in the tables, we find a negative relationship between the shall issue dummy variable and the log of crime rate for all crime categories besides larceny. This result would indicate that implementation of a shall issue law should decrease crime rates for all categories besides larceny. The two largest coefficients (in terms of order of magnitude) appear in the regression for violent crime (column 1 of Table 4) and aggravated assault (column 2 of Table 5). Both of these coefficients are statistically significant at a 1 percent level, and suggest the largest change in crime rate for a change to a shall issue law setting.
 
-\newpage
+Please see the appendix for detailed regression tables.
 
 \subsection{Bacon Decomposition}
 
-\begin{itemize}
-\item
-Explain Analysis: Bacon Decomposition without controls
-\item
-Explain weights and DiD estimates
-\item
-Explain early to late 2x2s and late to early 2x2s. What is the problem with late to early?
-\end{itemize}
+To extend the original analysis, we first implement the Bacon Decomposition. The Bacon Decomposition mathematically separates out the coefficients that arise from two way fixed effects estimation. More specifically, the Bacon Decomposition breaks the two way fixed effects regression coefficient into a few important parts: (1) the estimated 2x2 coefficients for each feasible comparison of groups in the sample and (2) the weight assigned to that group for purposes of aggregating into a final two way fixed effects coefficient. The major value in this approach is that we can see and assess the coefficients associated with each comparison of groups (the 2x2s) and the weight they are assigned for production of the final two way fixed effects coefficient. Importantly, this context is fitting because we have many combinations of treatment groups in our data due to the many states being treated at different points in time.
 
-\input{../tables/bacon_decomposition_Assault.tex}
+We note that one important difference, and the reason that the coefficients in each of the following tables for the ``Total TWFE'' line do not correspond to those presented in the prior section, is we do not apply control variables in the bacon decompositions.
 
-\input{../tables/bacon_decomposition_Autotheft.tex}
+For each of the tables below, we can see that the weights are identical. This is because the treatment variable (shall issue law) is the same for each regression, regardless of the outcome crime rate of interest. We see approximately 75 percent of the weighting for the two way fixed effect coefficient placed on the treated vs. untreated comparison, thus anchoring and acting as a core driver of the results. The second largest weight, approximately 16 percent, is placed on the later vs. always treated comparison. The smallest group weights are for the earlier vs. later treated and later vs. earlier treated groups with approximately 6.8 percent and 2.3 percent, respectively. 
 
-\input{../tables/bacon_decomposition_Burglary.tex}
-
-\input{../tables/bacon_decomposition_Larceny.tex}
-
-\input{../tables/bacon_decomposition_Rape.tex}
-
-\input{../tables/bacon_decomposition_Robbery.tex}
-
-\input{../tables/bacon_decomposition_Murder.tex}
-
-\input{../tables/bacon_decomposition_Property.tex}
+One interesting issue that the Bacon Decomposition highlights is the contribution of the later vs. earlier treated to the two way fixed effects final results. The estimates associated with this group are particularly problematic in terms of estimating the true treatment effect because they require an additional assumption that is not required for the other 2x2s. In particular, they require the assumption, or belief, that we not only have parallel trends holding across our relevant periods, but we also have homogeneous treatment effects across time for the earlier treated group. Thankfully, in this case, this contingent only contributes a little over 2 percent to the overall estimate.
 
 \input{../tables/bacon_decomposition_Violent.tex}
 
+\input{../tables/bacon_decomposition_Property.tex}
+
+Please see the appendix for the Bacon Decomposition tables for the other seven crime categories analyzed.
+
 \subsection{Callaway and Sant'anna}
 
-\textbf{Prompt: } Present a subsection in which you implement the Callaway and Sant’anna estimator.  Describe the model with an equation and a description (short). Use the double robust specification. You will be analyzing each outcome and reporting the overall ATT.  Do not report the group-level ATTs because many states simply do not have enough states per treatment date for the bootstrapping to provide accurate 95 percent confidence intervals.  Use no more than 2 covariates – use your own judgment in selectin them. Report this in Table 4 and in your discussion compare what you found with the original findings.  Are they similar?  If not how do they differ?
+For our second extension of the original analysis we implement the Callaway and Sant'anna estimator. The Callaway and Sant'anna estimator allows us to view estimates of group-time average treatment effects for each group in each time period. Though these are calculated for all comparisons, in reality these statistics are only identified when the time period of treatment for the group is prior to the time period in effect. For periods where this is not the case, we can use these average treatment effects to evaluate the validity of the parallel trends assumption. 
+
+To estimate each of the models (for each of the outcome crime rates of interest), we specify each of the necessary grouping variables in addition to the formula for the covariates. As usual, we use year for time, state for identification, and the year in which the state was first treated for states that had shall issue laws instituted in our time frame of analysis. Furthermore, we use the corresponding arrest rate for each crime rate as a covariate in this analysis. After running the model, we aggregate the individual treatment effect estimates at a group level, where the group is a year in which states instituted shall issue laws. Finally, we aggregate to an overall estimate of average treatment effect for each crime rate statistic and present in the following table. We summarize the average treatment effects to this level because many groups do not have sufficient data to calculate accurate confidence intervals.
+
+\input{../tables/cs.tex}
+
+Curiously, though we find similar coefficients and directional signs for some of the crimes analyzed, we also see instances where the signs are opposite or are significantly different in order of magnitude. For instance, property crime, rape, assault, robbery, and auto theft all exhibit sign changes between the two methodologies. For violent crime, we find the same sign direction but a significant change in the order of magnitude (10x). We see a similar issue with larceny.
 
 \subsection{Event Study (Sun and Abraham)}
 
@@ -127,6 +116,36 @@ Explain early to late 2x2s and late to early 2x2s. What is the problem with late
 \section{Conclusion}
 
 \textbf{Prompt: }What do you think you learned from this exercise?  Feel free to discuss as little or as much as you want.  I am just interested in your opinions.  The purpose of this is merely to give you a nudge in considering how to interpret results and offer some commentary. 
+
+\newpage
+
+\section{Appendix}
+
+\subsection{Detailed Two Way Fixed Effects Tables}
+
+\input{../tables/rep_table_3a.tex}
+
+\input{../tables/rep_table_3b.tex}
+
+\input{../tables/rep_table_3c.tex}
+
+\newpage
+
+\subsection{Additional Bacon Decomposition Tables}
+
+\input{../tables/bacon_decomposition_Murder.tex}
+
+\input{../tables/bacon_decomposition_Rape.tex}
+
+\input{../tables/bacon_decomposition_Assault.tex}
+
+\input{../tables/bacon_decomposition_Robbery.tex}
+
+\input{../tables/bacon_decomposition_Burglary.tex}
+
+\input{../tables/bacon_decomposition_Larceny.tex}
+
+\input{../tables/bacon_decomposition_Autotheft.tex}
 
 \end{document}
 

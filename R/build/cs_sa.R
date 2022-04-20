@@ -32,9 +32,10 @@ rm(treat_years)
 y_vars <- df %>% select(ends_with("crime_rate_log")) %>% colnames
 x_vars <- df %>% select(ends_with("arrest_rate")) %>% colnames
 
-cs_atts_out <- list()
+# cs_atts_out <- list()
 cs_agg_out <- list()
-cs_agg_es_out <- list()
+cs_group_coefs <- list()
+# cs_agg_es_out <- list()
 sa_out <- list()
 
 
@@ -59,7 +60,7 @@ for (i in 1:length(y_vars)) {
                  # DEFAULT print_details = F,
                  clustervars = "fipsstat",
                  panel = TRUE)
-  cs_atts_out[[y]] <- atts
+  # cs_atts_out[[y]] <- atts
   
   agg <- aggte(atts,
                type = "group",
@@ -67,11 +68,14 @@ for (i in 1:length(y_vars)) {
                na.rm = T)
   cs_agg_out[[y]] <- agg
   
-  agg_es <- aggte(atts, 
-                  type = "dynamic",
-                  balance_e = T,
-                  na.rm = T)
-  cs_agg_es_out[[y]] <- agg_es
+  cs_group_coefs[[y]] <- c(agg$overall.att,
+                           agg$overall.se)
+  
+  # agg_es <- aggte(atts, 
+  #                 type = "dynamic",
+  #                 balance_e = T,
+  #                 na.rm = T)
+  # cs_agg_es_out[[y]] <- agg_es
   
   # Sun and Abraham
   sa_form <- paste0(y,
@@ -85,6 +89,22 @@ for (i in 1:length(y_vars)) {
   sa_out[[y]] <- sa
   
 }
+
+do.call("rbind", cs_group_coefs) %>% 
+  as.data.frame %>% 
+  rownames_to_column() %>% 
+  mutate(rowname = rowname %>% str_replace_all("_", " ") %>% str_to_title()) %>% 
+  kbl(
+    caption = "Callaway and Sant'anna Overall ATTs",
+    col.names = c("Outcome Variable",
+                 "Overall ATT",
+                 "Std. Error"),
+    booktabs = T,
+    format = "latex",
+    label = "tab:cs"
+  ) %>% 
+  kable_styling(latex_option = c("striped", "HOLD_position")) %>% 
+  write_lines(here("tables", "cs.tex"))
 
 
 # summary(agg_effects)

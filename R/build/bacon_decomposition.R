@@ -46,7 +46,7 @@ for (i in 1:9) {
     str_replace_all(" ", "") %>% 
     str_replace_all("CrimeRateLog","")
   
-  caption <- paste0("Bacon Decomposition: ", clean_var_name)
+  caption <- paste0("Bacon Decomposition - ", clean_var_name)
   label <- paste0("tab:bacondecomposition", clean_label_name)
   file <- paste0("bacon_decomposition_", clean_label_name, ".tex")
   
