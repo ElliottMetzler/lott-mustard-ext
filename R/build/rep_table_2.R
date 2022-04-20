@@ -27,7 +27,7 @@ panel_a %>%
   mutate(Variable = str_replace_all(Variable, "_", " "),
          Variable = str_to_title(Variable)) %>% 
   kbl(
-    caption = "Replication of Table 2 (Panel A)",
+    caption = "Main Variables Summary",
     booktabs = T,
     format = 'latex',
     label = 'tab:replicatetable2a'
@@ -45,7 +45,7 @@ panel_b %>%
     Variable = str_replace(Variable, "f", "Female ")
   ) %>% 
   kbl(
-    caption = "Replication of Table 2 (Panel B)",
+    caption = "Demographic Variables Summary",
     booktabs = T,
     format = 'latex',
     label = 'tab:replicatetable2b'

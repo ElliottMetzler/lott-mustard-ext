@@ -35,51 +35,57 @@
 
 \section{Introduction}
 
-\textbf{Prompt:}  What is the purpose of your study?  State very clearly why people should care about this project.  
+This paper explores the findings of Lott and Mustard's 1997 paper titled ``Crime, Deterrence, and Right-to-Carry Concealed Handguns''. Specifically, we explore the original findings of the paper through a replication analysis using state level data, and extend the analysis to include more modern techniques of causal inference. Through application of modern techniques, we are able to better understand the original findings and ascertain their validity with more certainty. 
+
+In the original paper, the writers focused on applying a Fixed Effects model to their data. We replicate this model at the state level for comparison's sake. Additionally, we apply the Bacon Decomposition in order to more rigorously examine the underlying weights and pieces of the fixed effects coefficients produced by the original model. Third, we implement the Callaway and Sant'anna estimator. Last, we implement the Sun and Abraham event study. 
+
+The remainder of this paper is structured as follows. First, we discuss the background and economic theory of the original paper. Next, we discuss the data used for the replication and application of additional estimators. Third, we will present the four empirical models we implement on the data, discuss their purpose and implications, and present our results. Finally, we conclude with a summary and some implications of our study.
 
 \section{Background and Economic Theory}
 
-\textbf{Prompt:} This section should only focus on the original Lott and Mustard (1997) project.  What was this study?  How did they do it?  How were the laws coded?  It should include a table of the rollout state by state (Table 1), clear description of the laws, the theory behind why you should find deterrence (as well as a description of the economic theory of deterrence), and what the authors found in their original paper.  
+The original paper had a few key aims and implications. Principally, the authors were attempting to assess the impact of changes in concealed carry laws in the United States. Their study used data at the county level from the years 1977 to 1992 and included information on arrest rates, crime rates, demographic data, some economic data, and most importantly, an indicator variable for whether or not the county had a ``shall issue'' law. The ``shall issue'' law was useful for their purpose because these laws require officials to issue conceal carry gun permits to anyone who passes a basic screen for criminal record or history of significant mental illness. With this indicator variable, they posited that they could identify the causal impact of concealed carry on crime deterrence. We display the years in which each state that issued a shall issue law between 1977 and 1992 in Table 1.
 
-\input{../tables/rep_table_1.tex}
+\input{../tables/rollout.tex}
+
+The author's main analytical approach was to use a two-way fixed effects model, accounting for as much variation between units (counties) as possible to isolate the impact of the shall issue laws on various crime rates. More specifically, the authors regressed the natural log of crime rate on a dummy for the shall issue law, the arrest rate for the same crime category in question, some economic-related variables (population per square mile, unemployment insurance, etc.), and demographic distribution variables. The crimes they evaluated included murder, rape, aggravated assault, robbery, property crime, burglary, larceny, and auto theft. Additionally, they combined murder, rape, aggravated assault, and robbery into a category ``violent crime'' and the other three into a category called ``property crimes.'' For each of these crime categories, they estimated the two-way fixed effects model.
+
+The author's main results from this approach show that shall issue laws are negatively related to each of the violent crimes. They also find that the shall issue laws are negatively associated with the property crimes. 
+
+\textbf{Need to do for this section:}
+\begin{enumerate}
+\item 
+Add explanation of deterrence
+\end{enumerate}
 
 \section{Data}
 
-\textbf{Prompt:} In this section, you will describe the state-level data.  While the authors used county-level data, we will be using state-level since the laws are ultimately at the state level and critics have noted that the county-level data has substantial measurement error.  Describe the data, produce a table of summary statistics for the various crime outcomes as Table 2. Anything additional that you want to show (like time series of the crimes) is up to you. The goal is to create a readable document, so make your own choices.
+The data used for this replication and extension analysis is at the state level and includes each of the original variables required to replicate the main two-way fixed effects analysis performed by Lott and Mustard. Importantly, the data includes a row for each state for each year and each of the arrest rate, crime rate, economic, demographic, and shall issue indicator variables. We present summary statistics of the variables in Table 2 and Table 3. 
 
 \input{../tables/rep_table_2a.tex}
 
+As shown in the first panel, we have the arrest rates and crime rates for each of the nine categories analyzed by the original authors. We also include real per capita values for personal income, unemployment insurance, income maintenance, retirement payments, state population, and density.
+
 \input{../tables/rep_table_2b.tex}
 
+In the second panel we present summary statistics for the demographic variables in the data. These features are represented as proportions of the whole, and are broken down by gender, white or black or other, and age group. 
 
 \section{Empirical Model and Estimation}
 
-\begin{itemize}
-\item 
-Explain what this section is going to be about at a high level
-\item
-Quickly Summarize anything interesting
-
-\end{itemize}
+This section presents each of the four methods applied to the data. First, we analyze using two-way fixed effects consistent with the authors original approach. Next, we implement the Bacon Decomposition. Finally, we implement the Callaway and Sant'anna estimator  and the Sun and Abraham event study estimator.
 
 \subsection{Two way Fixed Effects}
 
-\begin{itemize}
-\item 
-Describe the model used by the authors
-\item
-Describe how this model is different
-\item
-Explain exclusion of controls from the tables but that they are analyzed
-\item 
-Draft explanation of model results
-\end{itemize}
+For the two way fixed effects model, we use a similar specification to the authors. For each category of crime, we run an individual two way fixed effects regression where the natural log of crime rate is the outcome, and the covariates include the shall issue dummy variable, the arrest rate associated with that crime, and the various control variables related to economic and demographic conditions. To account for unobservable differences between the states and years in the data, we use allow for fixed effects on these two variables. The key difference between our implementation and the author's original is that we use state level data as opposed to county level data. We present the key results of this analysis in the tables below.
 
 \input{../tables/rep_table_3a.tex}
 
 \input{../tables/rep_table_3b.tex}
 
 \input{../tables/rep_table_3c.tex}
+
+As shown in the tables, we find a negative relationship between the shall issue dummy variable and the log of crime rate for all crime categories besides larceny. This result would indicate that implementation of a shall issue law should decrease crime rates for all categories besides larceny. The two largest coefficients (in terms of order of magnitude) appear in the regression for violent crime (column 1 of Table 4) and aggravated assault (column 2 of Table 5). Both of these coefficients are statistically significant at a 1 percent level, and suggest the largest change in crime rate for a change to a shall issue law setting.
+
+\newpage
 
 \subsection{Bacon Decomposition}
 
@@ -92,15 +98,23 @@ Explain weights and DiD estimates
 Explain early to late 2x2s and late to early 2x2s. What is the problem with late to early?
 \end{itemize}
 
-\begin{landscape}
-\input{../tables/bacon_decompositiona.tex}
+\input{../tables/bacon_decomposition_Assault.tex}
 
-\input{../tables/bacon_decompositionb.tex}
+\input{../tables/bacon_decomposition_Autotheft.tex}
 
-\input{../tables/bacon_decompositionc.tex}
+\input{../tables/bacon_decomposition_Burglary.tex}
 
-\end{landscape}
+\input{../tables/bacon_decomposition_Larceny.tex}
 
+\input{../tables/bacon_decomposition_Rape.tex}
+
+\input{../tables/bacon_decomposition_Robbery.tex}
+
+\input{../tables/bacon_decomposition_Murder.tex}
+
+\input{../tables/bacon_decomposition_Property.tex}
+
+\input{../tables/bacon_decomposition_Violent.tex}
 
 \subsection{Callaway and Sant'anna}
 
