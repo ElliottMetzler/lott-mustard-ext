@@ -6,8 +6,8 @@ df <- read_csv(here("data", "clean", "state_data_clean.csv"),
   select(shalll:ppnf65o)
 
 ns <- df %>% summarise(across(everything(), ~sum(!is.na(.x))))
-means <- df %>% summarise(across(everything(), ~mean(.x, na.rm=T))) %>% round(4)
-sds <- df %>% summarise(across(everything(), ~sd(.x, na.rm=T))) %>% round(4)
+means <- df %>% summarise(across(everything(), ~mean(.x, na.rm=T))) %>% round(3)
+sds <- df %>% summarise(across(everything(), ~sd(.x, na.rm=T))) %>% round(3)
 
 stats <- list(ns, means, sds) %>% 
   do.call("rbind", .) %>% 

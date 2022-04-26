@@ -39,7 +39,10 @@ for (i in 1:9) {
                           average_estimate = NaN,
                           group_weight = NaN,
                           weighted_estimate = total_coef)
-  table <- rbind(curr_bacon, total_row)
+  table <- rbind(curr_bacon, total_row) %>% 
+    mutate(average_estimate = average_estimate %>% round(3),
+           group_weight = group_weight %>% round(3),
+           weighted_estimate = weighted_estimate %>% round(3))
 
   clean_var_name <- y  %>% str_replace_all("_", " ") %>% str_to_title()
   clean_label_name <- clean_var_name %>% 
@@ -50,18 +53,18 @@ for (i in 1:9) {
   label <- paste0("tab:bacondecomposition", clean_label_name)
   file <- paste0("bacon_decomposition_", clean_label_name, ".tex")
   
-  table %>% 
+  table %>%
     kbl(
       caption = caption,
       col.names = c("Type",
-                    "Average Estimate", 
-                    "Group Weight", 
+                    "Average Estimate",
+                    "Group Weight",
                     "Weighted Estimate"),
       booktabs = T,
       format = "latex",
       label = label
-    ) %>% 
-    kable_styling(latex_options = c("striped", "HOLD_position")) %>% 
+    ) %>%
+    kable_styling(latex_options = c("striped", "HOLD_position")) %>%
     write_lines(here("tables", file))
   
 }

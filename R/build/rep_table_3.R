@@ -72,7 +72,9 @@ for (reg_index in 1:9) {
 do.call("rbind", coefs_ses) %>% 
   as.data.frame %>% 
   rownames_to_column() %>% 
-  mutate(rowname = rowname %>% str_replace_all("_", " ") %>% str_to_title()) %>% 
+  mutate(rowname = rowname %>% str_replace_all("_", " ") %>% str_to_title(),
+         V1 = V1 %>% round(3),
+         V2 = V2 %>% round(3)) %>% 
   kbl(
     caption = "Two Way Fixed Effects Shall Issue Coefficients",
     col.names = c("Outcome Variable",

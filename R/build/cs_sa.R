@@ -94,7 +94,8 @@ for (i in 1:length(y_vars)) {
 do.call("rbind", cs_group_coefs) %>% 
   as.data.frame %>% 
   rownames_to_column() %>% 
-  mutate(rowname = rowname %>% str_replace_all("_", " ") %>% str_to_title()) %>% 
+  mutate(rowname = rowname %>% str_replace_all("_", " ") %>% str_to_title(),
+         across(V1:V2, ~round(.x,3))) %>% 
   kbl(
     caption = "Callaway and Sant'anna Overall ATTs",
     col.names = c("Outcome Variable",
