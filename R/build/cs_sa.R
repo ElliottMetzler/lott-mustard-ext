@@ -90,6 +90,7 @@ for (i in 1:length(y_vars)) {
   
 }
 
+# Create CS Table
 do.call("rbind", cs_group_coefs) %>% 
   as.data.frame %>% 
   rownames_to_column() %>% 
@@ -106,7 +107,15 @@ do.call("rbind", cs_group_coefs) %>%
   kable_styling(latex_option = c("striped", "HOLD_position")) %>% 
   write_lines(here("tables", "cs.tex"))
 
+# Create SA Figures
+rm(i)
+for (i in 1:length(y_vars)) {
+  
+  y <- y_vars[i]
+  short_y <- y %>% str_remove("_crime_rate_log")
+  path <- paste0("figures/", short_y, ".png")
+  png(here(path), width = 700, height = 350)
+  iplot(sa_out[[y]], ref.line = -1, main = "")
+  dev.off()
+}
 
-# summary(agg_effects)
-# ggdid(agg_effects)
-# ggdid(agg_effects_es)

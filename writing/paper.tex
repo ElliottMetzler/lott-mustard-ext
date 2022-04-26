@@ -27,7 +27,7 @@
 }
 
 \author{Elliott Metzler}
-\title{Lott and Mustard Replication Assignment}
+\title{Lott and Mustard Replication}
 \date{5/4/2022}
 
 \begin{document}
@@ -50,12 +50,6 @@ The original paper had a few key aims and implications. Principally, the authors
 The author's main analytical approach was to use a two-way fixed effects model, accounting for as much variation between units (counties) as possible to isolate the impact of the shall issue laws on various crime rates. More specifically, the authors regressed the natural log of crime rate on a dummy for the shall issue law, the arrest rate for the same crime category in question, some economic-related variables (population per square mile, unemployment insurance, etc.), and demographic distribution variables. The crimes they evaluated included murder, rape, aggravated assault, robbery, property crime, burglary, larceny, and auto theft. Additionally, they combined murder, rape, aggravated assault, and robbery into a category ``violent crime'' and the other three into a category called ``property crimes.'' For each of these crime categories, they estimated the two-way fixed effects model.
 
 The author's main results from this approach show that shall issue laws are negatively related to each of the violent crimes. They also find that the shall issue laws are negatively associated with the property crimes. 
-
-\textbf{Need to do for this section:}
-\begin{enumerate}
-\item 
-Add explanation of deterrence
-\end{enumerate}
 
 \section{Data}
 
@@ -111,11 +105,37 @@ Curiously, though we find similar coefficients and directional signs for some of
 
 \subsection{Event Study (Sun and Abraham)}
 
-\textbf{Prompt: } Finally, implement the Sun and Abraham event study.  While you can estimate Callaway and Sant’anna event studies, I would like to use Sun and Abraham.  Explain the interaction weighted estimator and show a figure of each crime.  Do pretrends appear to hold?  How confident do you feel then that parallel trends holds for each outcome.  This should only be presented as a Figure, not a table.  
+The third and final extension of the original analysis employs the Sun and Abraham event study estimator. Sun and Abraham's approach incorporates elements of the Bacon Decomposition and the Callaway and Sant'anna estimator, with the focus being on properly removing bias arising from treatment effect heterogeneity. The other key focus of the Sun and Abraham approach is to handle the contamination of lead and lag coefficients and improve estimation of testing for pretrends.
+
+As with the approach presented in the Callaway and Sant'anna section, we estimate a model for each crime rate log outcome with the arrest rate for the associated outcome as the covariate. We use the Sun and Abraham function on treatment year and year, and include state and year fixed effects parameters in our regression. Finally, we present the results in event study figures to visually evaluate pretrends assumptions and apparent cohort average treatment effects. We present the results for Violent Crime Rate Log and Property Crime Rate Log below.
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=0.85\textwidth]{violent}
+	\end{center}
+	\caption{Sun and Abraham Event Study - Violent Crime Rate Log}
+	\label{fig:violent_graph}
+\end{figure}
+
+As shown by the figure, it is not clear the pretrend assumptions hold. Indeed, for many years prior to the treatment year, the estimated effect is statistically significantly different from zero with a 95 percent confidence interval. Additionally, we notice that we see no average treatment effect for the first few years after treatment, before a significant departure for a few years followed by a reversion.
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=0.85\textwidth]{property}
+	\end{center}
+	\caption{Sun and Abraham Event Study - Property Crime Rate Log}
+	\label{fig:property_graph}
+\end{figure}
+
+For the Property Crime Rate Log variable, we see that for all but one year prior to treatment it could be that pretrend assumptions hold, though the confidence intervals appear relatively large. Similar to the prior chart, we have an interesting ``u'' shape after treatment where we see no cohort average treatment effect, some average cohort treatment effect, and no average cohort treatment effect again.
+
+For most of the other crimes analyzed, we see similarly erratic and inconclusive shapes. In many instances the pretrend assumptions appear to hold, but not all. For instance, the Assault Crime Rate Log stands out as the pretrend assumptions do not appear to hold, and we actually see in later treatment years a \emph{positive} average treatment effect.
+
+Please see the appendix for the Event Study figures for the other seven crime categories analyzed.
 
 \section{Conclusion}
 
-\textbf{Prompt: }What do you think you learned from this exercise?  Feel free to discuss as little or as much as you want.  I am just interested in your opinions.  The purpose of this is merely to give you a nudge in considering how to interpret results and offer some commentary. 
+Through this replication and extension, we have shown four different estimators applied to the same data can yield different and interesting results. We first estimated the fixed effects model consistent with the original approach by Lott and Mustard, albeit applied to state level data rather than county level. We then dug in further to the meaning and composition of the resulting fixed effects coefficients by applying the Bacon Decomposition. Finally, we applied the Callaway and Sant'anna alternative estimator and the Sun and Abraham event study to get more specific group-timing treatment effects and assess bias associated with treatment effect heterogeneity. The application of these various approaches showed just how important estimation approach and a critical eye toward potential sources of bias is when performing independent research. Furthermore, we see how far the study of difference in difference models has come in extracting ``more true'' casual coefficients. Historically, when studying two groups with one treatment, the assumptions and validation was more straightforward. Now, however, newer more nuanced models are required to support more complex scenarios involving multiple treatment groups receiving treatment at multiple times.  
 
 \newpage
 
@@ -146,6 +166,66 @@ Curiously, though we find similar coefficients and directional signs for some of
 \input{../tables/bacon_decomposition_Larceny.tex}
 
 \input{../tables/bacon_decomposition_Autotheft.tex}
+
+\newpage
+
+\subsection{Additional Sun and Abraham Event Study Figures}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=0.85\textwidth]{murder}
+	\end{center}
+	\caption{Sun and Abraham Event Study - Murder Crime Rate Log}
+	\label{fig:murder_graph}
+\end{figure}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=0.85\textwidth]{rape}
+	\end{center}
+	\caption{Sun and Abraham Event Study - Rape Crime Rate Log}
+	\label{fig:rape_graph}
+\end{figure}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=0.85\textwidth]{assault}
+	\end{center}
+	\caption{Sun and Abraham Event Study - Assault Crime Rate Log}
+	\label{fig:assault_graph}
+\end{figure}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=0.85\textwidth]{robbery}
+	\end{center}
+	\caption{Sun and Abraham Event Study - Robbery Crime Rate Log}
+	\label{fig:robbery_graph}
+\end{figure}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=0.85\textwidth]{burglary}
+	\end{center}
+	\caption{Sun and Abraham Event Study - Burglary Crime Rate Log}
+	\label{fig:burglary_graph}
+\end{figure}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=0.85\textwidth]{larceny}
+	\end{center}
+	\caption{Sun and Abraham Event Study - Larceny Crime Rate Log}
+	\label{fig:larceny_graph}
+\end{figure}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=0.85\textwidth]{autotheft}
+	\end{center}
+	\caption{Sun and Abraham Event Study - Auto Theft Crime Rate Log}
+	\label{fig:autotheft_graph}
+\end{figure}
 
 \end{document}
 
